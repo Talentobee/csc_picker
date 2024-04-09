@@ -50,10 +50,11 @@ class DropdownWithSearch<T> extends StatelessWidget {
           Text(
             label,
             style: TextStyle(
-                overflow: TextOverflow.ellipsis,
-                fontWeight: FontWeight.w400,
-                fontSize: labelFontSize ?? 17,
-                color: Theme.of(context).colorScheme.tertiaryContainer),
+              overflow: TextOverflow.ellipsis,
+              fontSize: labelFontSize ?? 17,
+              fontWeight: FontWeight.w500,
+              color: Theme.of(context).colorScheme.onTertiary,
+            ),
           ),
           GestureDetector(
             onTap: () {
