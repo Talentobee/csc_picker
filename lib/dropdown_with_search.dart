@@ -14,7 +14,9 @@ class DropdownWithSearch<T> extends StatelessWidget {
   final double? dialogRadius;
   final bool disabled;
   final String label;
+  final String? errorText;
   final double? labelFontSize;
+    final double? errorFontSize;
   final EdgeInsetsGeometry? labelPadding;
 
   final Function onChanged;
@@ -37,6 +39,8 @@ class DropdownWithSearch<T> extends StatelessWidget {
       this.dialogRadius,
       required this.label,
       this.labelFontSize,
+      this.errorText,
+      this.errorFontSize,
       this.disabled = false})
       : super(key: key);
 
@@ -109,6 +113,14 @@ class DropdownWithSearch<T> extends StatelessWidget {
                   Icon(Icons.keyboard_arrow_down_rounded)
                 ],
               ),
+            ),
+          ),
+          Text(
+            errorText ?? 'Nice',
+            style: TextStyle(
+              overflow: TextOverflow.ellipsis,
+              fontSize: labelFontSize,
+              color: Theme.of(context).colorScheme.error,
             ),
           ),
         ],

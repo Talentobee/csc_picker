@@ -551,6 +551,10 @@ class CSCPicker extends StatefulWidget {
     this.clearButtonContent = const Text("Clear"),
     this.showClearButton = false,
     this.labelPadding,
+    this.stateErrorText,
+    this.cityErrorText,
+    this.countryErrorText,
+    this.errorFontSize,
   }) : super(key: key);
 
   final ValueChanged<String?>? onCountryChanged;
@@ -569,6 +573,9 @@ class CSCPicker extends StatefulWidget {
 
   // title widget
   final Widget? title;
+  final String? stateErrorText;
+  final String? countryErrorText;
+  final String? cityErrorText;
 
   ///Parameters to change style of CSC Picker
   final TextStyle? selectedItemStyle, dropdownHeadingStyle, dropdownItemStyle;
@@ -585,6 +592,7 @@ class CSCPicker extends StatefulWidget {
   final String stateSearchPlaceholder;
   final String citySearchPlaceholder;
   final double? labelFontSize;
+  final double? errorFontSize;
   final EdgeInsetsGeometry? labelPadding;
 
   final String countryDropdownLabel;
@@ -911,12 +919,14 @@ class CSCPickerState extends State<CSCPicker> {
       dropdownHeadingStyle: widget.dropdownHeadingStyle,
       itemStyle: widget.dropdownItemStyle,
       decoration: widget.dropdownDecoration,
+      errorText: widget.countryErrorText,
       disabledDecoration: widget.disabledDropdownDecoration,
       disabled: _country.length == 0 || widget.disableCountry ? true : false,
       dialogRadius: widget.dropdownDialogRadius,
       searchBarRadius: widget.searchBarRadius,
       label: widget.countrySearchPlaceholder,
       labelFontSize: widget.labelFontSize,
+      errorFontSize: widget.errorFontSize,
       labelPadding: widget.labelPadding,
       items: _country.map((String? dropDownStringItem) {
         return dropDownStringItem;
@@ -944,6 +954,7 @@ class CSCPickerState extends State<CSCPicker> {
       items: _states.map((String? dropDownStringItem) {
         return dropDownStringItem;
       }).toList(),
+      errorText: widget.stateErrorText,
       selectedItemStyle: widget.selectedItemStyle,
       dropdownHeadingStyle: widget.dropdownHeadingStyle,
       itemStyle: widget.dropdownItemStyle,
@@ -954,6 +965,7 @@ class CSCPickerState extends State<CSCPicker> {
       selected: _selectedState,
       label: widget.stateSearchPlaceholder,
       labelFontSize: widget.labelFontSize,
+      errorFontSize: widget.errorFontSize,
       labelPadding: widget.labelPadding,
       //onChanged: (value) => _onSelectedState(value),
       onChanged: (value) {
@@ -974,6 +986,7 @@ class CSCPickerState extends State<CSCPicker> {
       items: _cities.map((String? dropDownStringItem) {
         return dropDownStringItem;
       }).toList(),
+      errorText: widget.cityErrorText,
       selectedItemStyle: widget.selectedItemStyle,
       dropdownHeadingStyle: widget.dropdownHeadingStyle,
       itemStyle: widget.dropdownItemStyle,
@@ -983,7 +996,8 @@ class CSCPickerState extends State<CSCPicker> {
       disabledDecoration: widget.disabledDropdownDecoration,
       selected: _selectedCity,
       label: widget.citySearchPlaceholder,
-      labelFontSize: widget.labelFontSize,
+      labelFontSize: widget.labelFontSize, 
+      errorFontSize: widget.errorFontSize,
       labelPadding: widget.labelPadding,
       //onChanged: (value) => _onSelectedCity(value),
       onChanged: (value) {
