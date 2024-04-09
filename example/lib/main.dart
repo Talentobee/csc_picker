@@ -54,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 CSCPicker(
                   ///Enable disable state dropdown [OPTIONAL PARAMETER]
                   showStates: true,
+                  countryErrorText: 'Nice',
 
                   /// Enable disable city drop down [OPTIONAL PARAMETER]
                   showCities: true,
