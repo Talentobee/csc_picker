@@ -116,7 +116,7 @@ class DropdownWithSearch<T> extends StatelessWidget {
             ),
           ),
           Text(
-            errorText ?? 'Nice',
+            errorText ?? '',
             style: TextStyle(
               overflow: TextOverflow.ellipsis,
               fontSize: labelFontSize,
