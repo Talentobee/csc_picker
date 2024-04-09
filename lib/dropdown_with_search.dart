@@ -14,6 +14,8 @@ class DropdownWithSearch<T> extends StatelessWidget {
   final double? dialogRadius;
   final bool disabled;
   final String label;
+  final double? labelFontSize;
+  final EdgeInsetsGeometry? labelPadding;
 
   final Function onChanged;
 
@@ -27,12 +29,14 @@ class DropdownWithSearch<T> extends StatelessWidget {
       this.selectedItemPadding,
       this.selectedItemStyle,
       this.dropdownHeadingStyle,
+      this.labelPadding,
       this.itemStyle,
       this.decoration,
       this.disabledDecoration,
       this.searchBarRadius,
       this.dialogRadius,
       required this.label,
+      this.labelFontSize,
       this.disabled = false})
       : super(key: key);
 
@@ -40,58 +44,73 @@ class DropdownWithSearch<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return AbsorbPointer(
       absorbing: disabled,
-      child: GestureDetector(
-        onTap: () {
-          showDialog(
-              context: context,
-              builder: (context) => SearchDialog(
-                  placeHolder: placeHolder,
-                  title: title,
-                  searchInputRadius: searchBarRadius,
-                  dialogRadius: dialogRadius,
-                  titleStyle: dropdownHeadingStyle,
-                  itemStyle: itemStyle,
-                  items: items)).then((value) {
-            onChanged(value);
-            /* if(value!=null)
-                    {
-                      onChanged(value);
-                      _lastSelected = value;
-                    }
-                    else {
-                      print("Value NULL $value $_lastSelected");
-                      onChanged(_lastSelected);
-                    }*/
-          });
-        },
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-          decoration: !disabled
-              ? decoration != null
-                  ? decoration
-                  : BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                      color: Colors.white,
-                      border: Border.all(color: Colors.grey.shade300, width: 1))
-              : disabledDecoration != null
-                  ? disabledDecoration
-                  : BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                      color: Colors.grey.shade300,
-                      border:
-                          Border.all(color: Colors.grey.shade300, width: 1)),
-          child: Row(
-            children: [
-              Expanded(
-                  child: Text(selected.toString(),
-                      overflow: TextOverflow.ellipsis,
-                      style: selectedItemStyle != null
-                          ? selectedItemStyle
-                          : TextStyle(fontSize: 14))),
-              Icon(Icons.keyboard_arrow_down_rounded)
-            ],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+                overflow: TextOverflow.ellipsis,
+                fontWeight: FontWeight.w400,
+                fontSize: labelFontSize ?? 17,
+                color: Theme.of(context).colorScheme.tertiaryContainer),
           ),
-        ),
+          GestureDetector(
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (context) => SearchDialog(
+                      placeHolder: placeHolder,
+                      title: title,
+                      searchInputRadius: searchBarRadius,
+                      dialogRadius: dialogRadius,
+                      titleStyle: dropdownHeadingStyle,
+                      itemStyle: itemStyle,
+                      items: items)).then((value) {
+                onChanged(value);
+                /* if(value!=null)
+                        {
+                          onChanged(value);
+                          _lastSelected = value;
+                        }
+                        else {
+                          print("Value NULL $value $_lastSelected");
+                          onChanged(_lastSelected);
+                        }*/
+              });
+            },
+            child: Container(
+              padding: labelPadding ??
+                  EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              decoration: !disabled
+                  ? decoration != null
+                      ? decoration
+                      : BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          color: Colors.white,
+                          border:
+                              Border.all(color: Colors.grey.shade300, width: 1))
+                  : disabledDecoration != null
+                      ? disabledDecoration
+                      : BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          color: Colors.grey.shade300,
+                          border: Border.all(
+                              color: Colors.grey.shade300, width: 1)),
+              child: Row(
+                children: [
+                  Expanded(
+                      child: Text(selected.toString(),
+                          overflow: TextOverflow.ellipsis,
+                          style: selectedItemStyle != null
+                              ? selectedItemStyle
+                              : TextStyle(fontSize: 14))),
+                  Icon(Icons.keyboard_arrow_down_rounded)
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

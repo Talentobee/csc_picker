@@ -520,6 +520,7 @@ class CSCPicker extends StatefulWidget {
   ///CSC Picker Constructor
   const CSCPicker({
     Key? key,
+    this.labelFontSize,
     this.onCountryChanged,
     this.onStateChanged,
     this.onCityChanged,
@@ -549,6 +550,7 @@ class CSCPicker extends StatefulWidget {
     this.title,
     this.clearButtonContent = const Text("Clear"),
     this.showClearButton = false,
+    this.labelPadding,
   }) : super(key: key);
 
   final ValueChanged<String?>? onCountryChanged;
@@ -582,6 +584,8 @@ class CSCPicker extends StatefulWidget {
   final String countrySearchPlaceholder;
   final String stateSearchPlaceholder;
   final String citySearchPlaceholder;
+  final double? labelFontSize;
+  final EdgeInsetsGeometry? labelPadding;
 
   final String countryDropdownLabel;
   final String stateDropdownLabel;
@@ -912,6 +916,8 @@ class CSCPickerState extends State<CSCPicker> {
       dialogRadius: widget.dropdownDialogRadius,
       searchBarRadius: widget.searchBarRadius,
       label: widget.countrySearchPlaceholder,
+      labelFontSize: widget.labelFontSize,
+      labelPadding: widget.labelPadding,
       items: _country.map((String? dropDownStringItem) {
         return dropDownStringItem;
       }).toList(),
@@ -947,6 +953,8 @@ class CSCPickerState extends State<CSCPicker> {
       disabledDecoration: widget.disabledDropdownDecoration,
       selected: _selectedState,
       label: widget.stateSearchPlaceholder,
+      labelFontSize: widget.labelFontSize,
+      labelPadding: widget.labelPadding,
       //onChanged: (value) => _onSelectedState(value),
       onChanged: (value) {
         //print("stateChanged $value $_selectedState");
@@ -975,6 +983,8 @@ class CSCPickerState extends State<CSCPicker> {
       disabledDecoration: widget.disabledDropdownDecoration,
       selected: _selectedCity,
       label: widget.citySearchPlaceholder,
+      labelFontSize: widget.labelFontSize,
+      labelPadding: widget.labelPadding,
       //onChanged: (value) => _onSelectedCity(value),
       onChanged: (value) {
         //print("cityChanged $value $_selectedCity");
